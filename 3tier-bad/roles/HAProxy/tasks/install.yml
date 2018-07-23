@@ -1,0 +1,27 @@
+# install HAProxy in all servers
+# Repo Role Name : HAProxy
+
+- name: Install HAProxy (yum)
+  yum:
+    name: haproxy 
+    state: latest
+
+- name: 'start it'
+  service:
+    name: haproxy
+    state: started
+
+
+- name: 'Enable it'
+  service:
+    name: haproxy
+    enabled: yes
+
+- name: configure haproxy
+  template:
+    src: ./haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- notify: restart restart HAproxy
+
+
